@@ -5,7 +5,8 @@
 On your server (where Dokku is installed):
 ``` sh
 dokku apps:create prefect
-dokku config:set prefect POSTGRES_DATABASE_SCHEME=postgresql+asyncpg
+dokku config:set prefect POSTGRES_DATABASE_SCHEME=postgresql+asyncpg \
+    PREFECT_API_URL=http://prefect.yourdomain.com/api
 
 dokku postgres:create prefect
 dokku postgres:link prefect prefect -a PREFECT_API_DATABASE_CONNECTION
