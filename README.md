@@ -1,12 +1,22 @@
 # dokku-prefect
 
+## How to deploy
+
+### TL;DR:
+
+1. Create Dokku app, link Postgres
+2. Clone this Template
+3. Set CI/CD envs in Github repo settings
+4. Push something to trigger deploy
+5. Enable Https if required
+
 ## Create Dokku app
 
 On your server (where Dokku is installed):
 ``` sh
 dokku apps:create prefect
 dokku config:set prefect POSTGRES_DATABASE_SCHEME=postgresql+asyncpg \
-    PREFECT_API_URL=http://prefect.yourdomain.com/api
+    PREFECT_API_URL=https://prefect.yourdomain.com/api
 
 dokku postgres:create prefect
 dokku postgres:link prefect prefect -a PREFECT_API_DATABASE_CONNECTION
@@ -25,3 +35,11 @@ Settings -> Secrets and variables -> Actions -> New repository secret
 - SSH_PRIVATE_KEY (`cat .ssh/id_rsa` & copy-paste your key)
 - DOKKU_HOST  (e.g. myserver.dokku.com)
 - DOKKU_APP_NAME (e.g. prefect)
+
+
+## How to enable Https
+
+``` sh
+dokku letsencrypt:enable prefect
+```
+
