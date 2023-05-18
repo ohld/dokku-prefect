@@ -45,11 +45,11 @@ dokku letsencrypt:enable prefect
 
 ### How to enable https basic auth
 
-WIP: I'm waiting for an answer at https://github.com/dokku/dokku-http-auth/issues/21
-
 ``` sh
 dokku plugin:install https://github.com/dokku/dokku-http-auth.git
 dokku http-auth:enable prefect admin admin_password
-dokku http-auth:add-allowed-ip prefect IP_ADDRESS_MASK_HERE
+dokku http-auth:add-allowed-ip app $(curl http://icanhazip.com/)
 dokku ps:restart prefect
 ```
+
+Don't forget to disable Cloudflare Proxy to allow `add-allowed-ip` do its job.
